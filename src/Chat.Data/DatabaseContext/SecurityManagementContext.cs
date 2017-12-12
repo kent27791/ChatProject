@@ -16,6 +16,7 @@ namespace Chat.Data.DatabaseContext
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new GroupMemberMap());
+            modelBuilder.ApplyConfiguration(new MemberMap());
         }
 
         public void Commit()

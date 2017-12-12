@@ -42,6 +42,12 @@ namespace Chat.Admin.Api
             services.AddCustomizedDataStore(_settings);
             services.AddCustomizedAutoMapper();
             services.AddCustomizedSwagger();
+            services.AddCors(options => options.AddPolicy("CrossClient", builder => 
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            }));
             //database
             services.AddSingleton<IDatabaseContext<LogManagementContext>, LogManagementContext>();
             services.AddSingleton<IDatabaseContext<SecurityManagementContext>, SecurityManagementContext>();
@@ -51,10 +57,11 @@ namespace Chat.Admin.Api
             //repository
             services.AddTransient<IRepository<LogManagementContext, SystemLog, int>, Repository<LogManagementContext, SystemLog, int>>();
             services.AddTransient<IRepository<SecurityManagementContext, GroupMember, int>, Repository<SecurityManagementContext, GroupMember, int>>();
+            services.AddTransient<IRepository<SecurityManagementContext, Member, int>, Repository<SecurityManagementContext, Member, int>>();
             //service
             services.AddTransient<ISystemLogService, SystemLogService>();
             services.AddTransient<IGroupMemberService, GroupMemberService>();
-
+            services.AddTransient<IMemberService, MemberService>();
             return services.Build(_configuration, _hostingEnvironment);
         }
 
@@ -75,6 +82,7 @@ namespace Chat.Admin.Api
             app.UseCustomizedMvc();
             app.UseCustomizedLogger(env, loggerFactory);
             app.UseCustomizedSwagger();
+            app.UseCors("CrossClient");
         }
     }
 }

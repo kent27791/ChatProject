@@ -54,5 +54,10 @@ namespace Chat.Data.Repository
             }
             _dbSet.Remove(entity);
         }
+
+        public IQueryable<TEntity> FromSql(RawSqlString sql, params object[] paramters)
+        {
+            return _dbSet.FromSql(sql, paramters);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Chat.Core.Domain;
+﻿using Chat.Common.Datatable;
+using Chat.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,8 @@ namespace Chat.Core.Service
         void Delete(TKey key);
 
         void Delete(TEntity entity);
+
+        DataTableResponse<TEntity> Paging(DataTableRequest request);
 
     }
 }

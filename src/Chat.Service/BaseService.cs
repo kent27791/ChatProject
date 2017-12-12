@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using Chat.Common.Datatable;
 using Chat.Core.Data;
 using Chat.Core.Domain;
 using Chat.Core.Service;
@@ -44,6 +44,19 @@ namespace Chat.Service
         public void Delete(TEntity entity)
         {
             _repository.Delete(entity);
+        }
+
+        public DataTableResponse<TEntity> Paging(DataTableRequest request)
+        {
+            request.Count = this.FindAll().Count();
+
+            DataTableResponse<TEntity> result = new DataTableResponse<TEntity>
+            {
+                Data = this._repository.Query().Skip(request.Offset * request.PageSize).Take(request.PageSize).ToList(),
+                Page = request
+            };
+
+            return result;
         }
     }
 }

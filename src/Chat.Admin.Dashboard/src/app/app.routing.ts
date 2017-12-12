@@ -11,6 +11,14 @@ export const AppRoutes: Routes = [
       {
         path: '',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'security',
+        loadChildren: './security/security.module#SecurityModule'
+      },
+      {
+        path: 'datatable',
+        loadChildren: './datatable/datatable.module#DatatableModule'
       }
     ]
   },

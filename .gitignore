@@ -300,3 +300,4 @@ __pycache__/
 #custom
 libs/**
 **/node_modules/**
+**/.svn/**

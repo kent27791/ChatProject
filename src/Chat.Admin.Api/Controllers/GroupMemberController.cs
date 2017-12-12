@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using AutoMapper;
@@ -8,6 +10,9 @@ using Chat.Admin.Api.ViewModels;
 using Chat.Core.Domain.SecurityManagement;
 using Chat.Core.Data;
 using Chat.Data.DatabaseContext;
+using Chat.Common.Datatable;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace Chat.Admin.Api.Controllers
 {
@@ -30,11 +35,29 @@ namespace Chat.Admin.Api.Controllers
             this._groupMemberService = groupMemberService;
         }
 
+        [HttpPost]
+        [Route("datatable")]
+        [EnableCors("CrossClient")]
+        public IActionResult DataTable([FromBody] DataTableRequest request)
+        {
+            var data = _groupMemberService.FindAll().ToList();
+            request.Count = data.Count();
+
+            DataTableResponse<GroupMember> result = new DataTableResponse<GroupMember>();
+            result.Data = data;
+            result.Page = request;
+
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("find/{id}")]
         public IActionResult Find(int id)
         {
-            return Ok(_groupMemberService.Find(id));
+            var a = _groupMemberService.StoreFindAll();
+            var b = _groupMemberService.StoreFind(1);
+            return Ok();
+            //return Ok(_groupMemberService.Find(id));
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
 ﻿using Chat.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Chat.Core.Data
@@ -18,5 +19,9 @@ namespace Chat.Core.Data
         void Delete(TKey key);
 
         void Delete(TEntity entity);
+
+        IQueryable<TEntity> FromSql(RawSqlString sql, params object[] parameters);
+
+
     }
 }

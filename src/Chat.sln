@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Data", "Chat.Data\Chat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Admin.Api", "Chat.Admin.Api\Chat.Admin.Api.csproj", "{6E975601-E3E0-4811-9DB1-C4C7153A4EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Admin.Dashboard", "Chat.Admin.Dashboard\Chat.Admin.Dashboard.csproj", "{75EB878F-84EE-4E25-8D8A-2FF6A809BE23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Admin.Dashboard", "Chat.Admin.Dashboard\Chat.Admin.Dashboard.csproj", "{75EB878F-84EE-4E25-8D8A-2FF6A809BE23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

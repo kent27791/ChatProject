@@ -7,9 +7,17 @@ using Microsoft.AspNetCore.Hosting;
 
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
+using Autofac;
 
 using Chat.Core.Configuration;
 using Chat.Data.DatabaseContext;
+using Chat.Core.Data;
+using Chat.Data.Repository;
+using Chat.Data.UnitOfWork;
+using Chat.Service.SecurityManagement;
+using Autofac.Extensions.DependencyInjection;
+using Chat.Core.Domain.SecurityManagement;
+
 namespace Chat.Admin.Api.Extentions
 {
     public static class ServiceCollectionExtensions
@@ -45,7 +53,7 @@ namespace Chat.Admin.Api.Extentions
         public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, ISettings settings)
         {
             services.AddDbContextPool<LogManagementContext>(options => options.UseSqlServer(settings.ConnectionStrings.LogManagement));
-            services.AddDbContextPool<SecurityManagementContext>(options => options.UseSqlServer(settings.ConnectionStrings.SecurityManagement));
+            services.AddDbContextPool<SecurityManagementContext>(options => options.UseSqlServer(settings.ConnectionStrings.SecurityManagement, b => b.MigrationsAssembly("Chat.Admin.Api")));
             services.AddDbContextPool<ChatManagementContext>(options => options.UseSqlServer(settings.ConnectionStrings.ChatManagement));
             return services;
         }
@@ -65,9 +73,42 @@ namespace Chat.Admin.Api.Extentions
             return services;
         }
 
+        public static IServiceCollection AddCustomizedCors(this IServiceCollection services)
+        {
+            services.AddCors(options => options.AddPolicy("CorsClient", builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            }));
+            return services;
+        }
+
+        public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services)
+        {
+            //services.AddIdentity<User, Role>()
+            //    .AddRoleStore<SimplRoleStore>()
+            //    .AddUserStore<SimplUserStore>()
+            //    .AddDefaultTokenProviders();
+
+            return services;
+        }
+
         public static IServiceProvider Build(this IServiceCollection services, IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
-            return services.BuildServiceProvider();
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<SecurityManagementContext>().As<IDatabaseContext<SecurityManagementContext>>().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork<SecurityManagementContext>>().As<IUnitOfWork<SecurityManagementContext>>().InstancePerLifetimeScope();
+
+            builder.RegisterType<Repository<SecurityManagementContext, GroupMember, int>>().As<IRepository<SecurityManagementContext, GroupMember, int>>().InstancePerLifetimeScope();
+            builder.RegisterType<GroupMemberService>().As<IGroupMemberService>().InstancePerLifetimeScope();
+
+            builder.RegisterInstance(configuration);
+            builder.RegisterInstance(hostingEnvironment);
+            builder.Populate(services);
+            var container = builder.Build();
+            return container.Resolve<IServiceProvider>();
         }
 
 

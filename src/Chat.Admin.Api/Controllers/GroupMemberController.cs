@@ -37,7 +37,7 @@ namespace Chat.Admin.Api.Controllers
 
         [HttpPost]
         [Route("datatable")]
-        [EnableCors("CrossClient")]
+        [EnableCors("CorsClient")]
         public IActionResult DataTable([FromBody] DataTableRequest request)
         {
             var data = _groupMemberService.Paging(request, _groupMemberService.Repository.Query());

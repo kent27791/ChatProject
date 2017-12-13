@@ -86,5 +86,11 @@ namespace Chat.Admin.Api.Extentions
             //});
             return app;
         }
+
+        public static IApplicationBuilder UseCustomizedCors(this IApplicationBuilder app)
+        {
+            app.UseCors("CorsClient");
+            return app;
+        }
     }
 }

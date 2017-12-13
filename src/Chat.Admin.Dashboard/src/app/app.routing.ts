@@ -16,10 +16,6 @@ export const AppRoutes: Routes = [
         path: 'security',
         loadChildren: './security/security.module#SecurityModule'
       },
-      {
-        path: 'datatable',
-        loadChildren: './datatable/datatable.module#DatatableModule'
-      }
     ]
   },
 
@@ -34,10 +30,6 @@ export const AppRoutes: Routes = [
       {
         path: 'error',
         loadChildren: './error/error.module#ErrorModule'
-      },
-      {
-        path: 'landing',
-        loadChildren: './landing/landing.module#LandingModule'
       }
     ]
   },

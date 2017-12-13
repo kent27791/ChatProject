@@ -40,14 +40,8 @@ namespace Chat.Admin.Api.Controllers
         [EnableCors("CrossClient")]
         public IActionResult DataTable([FromBody] DataTableRequest request)
         {
-            var data = _groupMemberService.FindAll().ToList();
-            request.Count = data.Count();
-
-            DataTableResponse<GroupMember> result = new DataTableResponse<GroupMember>();
-            result.Data = data;
-            result.Page = request;
-
-            return Ok(result);
+            var data = _groupMemberService.Paging(request, _groupMemberService.Repository.Query());
+            return Ok(data);
         }
 
         [HttpGet]

@@ -301,3 +301,4 @@ __pycache__/
 libs/**
 **/node_modules/**
 **/.svn/**
+**/docs/decima-120/**

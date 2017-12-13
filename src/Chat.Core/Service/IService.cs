@@ -1,7 +1,9 @@
 ﻿using Chat.Common.Datatable;
+using Chat.Core.Data;
 using Chat.Core.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Chat.Core.Service
@@ -10,6 +12,8 @@ namespace Chat.Core.Service
         where TEntity : BaseEntity<TKey>
         where TContext : class
     {
+        IRepository<TContext, TEntity, TKey> Repository { get; }
+
         TEntity Find(TKey key);
 
         IEnumerable<TEntity> FindAll();
@@ -22,7 +26,7 @@ namespace Chat.Core.Service
 
         void Delete(TEntity entity);
 
-        DataTableResponse<TEntity> Paging(DataTableRequest request);
+        DataTableResponse<TEntity> Paging(DataTableRequest request, IQueryable<TEntity> data);
 
     }
 }

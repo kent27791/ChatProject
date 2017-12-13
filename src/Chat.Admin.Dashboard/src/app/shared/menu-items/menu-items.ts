@@ -231,42 +231,42 @@ const MENUITEMS = [
   //     },
   //   ]
   // },
-  {
-    state: 'datatable',
-    name: 'DATATABLES',
-    type: 'sub',
-    icon: 'basic-webpage-img-txt',
-    children: [
-      {
-        state: 'fullscreen',
-        name: 'FULLSCREEN'
-      },
-      {
-        state: 'editing',
-        name: 'EDITING'
-      },
-      {
-        state: 'filter',
-        name: 'FILTER'
-      },
-      {
-        state: 'paging',
-        name: 'PAGING'
-      },
-      {
-        state: 'pinning',
-        name: 'PINNING'
-      },
-      {
-        state: 'selection',
-        name: 'SELECTION'
-      },
-      {
-        state: 'sorting',
-        name: 'SORTING'
-      },
-    ]
-  },
+  // {
+  //   state: 'datatable',
+  //   name: 'DATATABLES',
+  //   type: 'sub',
+  //   icon: 'basic-webpage-img-txt',
+  //   children: [
+  //     {
+  //       state: 'fullscreen',
+  //       name: 'FULLSCREEN'
+  //     },
+  //     {
+  //       state: 'editing',
+  //       name: 'EDITING'
+  //     },
+  //     {
+  //       state: 'filter',
+  //       name: 'FILTER'
+  //     },
+  //     {
+  //       state: 'paging',
+  //       name: 'PAGING'
+  //     },
+  //     {
+  //       state: 'pinning',
+  //       name: 'PINNING'
+  //     },
+  //     {
+  //       state: 'selection',
+  //       name: 'SELECTION'
+  //     },
+  //     {
+  //       state: 'sorting',
+  //       name: 'SORTING'
+  //     },
+  //   ]
+  // },
   // {
   //   state: 'charts',
   //   name: 'CHARTS',

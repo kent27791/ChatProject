@@ -12,6 +12,8 @@ namespace Chat.Service
     {
         protected readonly IRepository<TContext, TEntity, TKey> _repository;
 
+        public IRepository<TContext, TEntity, TKey> Repository => _repository;
+
         public BaseService(IRepository<TContext, TEntity, TKey> repository)
         {
             this._repository = repository;
@@ -46,16 +48,14 @@ namespace Chat.Service
             _repository.Delete(entity);
         }
 
-        public DataTableResponse<TEntity> Paging(DataTableRequest request)
+        public DataTableResponse<TEntity> Paging(DataTableRequest request, IQueryable<TEntity> data)
         {
-            request.Count = this.FindAll().Count();
-
+            request.Count = data.Count();
             DataTableResponse<TEntity> result = new DataTableResponse<TEntity>
             {
-                Data = this._repository.Query().Skip(request.Offset * request.PageSize).Take(request.PageSize).ToList(),
+                Data = data.Skip(request.Offset * request.Limit).Take(request.Limit).ToList(),
                 Page = request
             };
-
             return result;
         }
     }
